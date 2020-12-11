@@ -15,13 +15,11 @@ response.raise_for_status()
 # Load JSON data into a Python variable.
 weatherData = json.loads(response.text)
 
-
-#print(weatherData['alerts'])
-#print()
-#print(weatherData['alerts'][0]['event'])
-print(weatherData['alerts'][0]['description'])
-
-
+# Prints the description of any weather alerts, will later be replaced with sending email-to-text code.
+try:
+    print(weatherData['alerts'][0]['description'])
+except KeyError:  # If there is no ['alerts'] key/value, catches the error and reports no alerts
+    print('No Alerts :)')
 
 
 
