@@ -1,6 +1,6 @@
 #! python3
 
-import json, requests, sys, ezgmail, os
+import json, requests, sys, ezgmail, os, time
 
 # Initializing constants
 APPID = 'INSERT YOUR AP ID FROM OPENWEATHER.ORG'
@@ -18,11 +18,18 @@ weatherData = json.loads(response.text)
 # Changes to the working directory of the program
 os.chdir(r'C:\Users\charl\OneDrive\Documents\GitHub\Weather Alert App')
 
+# Prompts for google sign in if not already done so
 ezgmail.init()
 
-# Sends email to PHONE if there is a weather alert for LON and LAT
-try:
-    ezgmail.send(PHONE, 'Weather Alert!', weatherData['alerts'][0]['description'])
-except KeyError:  # If there is no ['alerts'] key/value, catches the error and reports no alerts
-    #ezgmail.send(PHONE, 'Weather Alert!', 'This is my program sending you a weather alert: No Alerts :)')
-    print('No Alerts :)')
+# Creates a loop that will keep the alert checks going infinitely
+while True:
+
+    # Sends email to PHONE if there is a weather alert for LON and LAT,
+    # If no alerts for the area, will do nothing until next check
+    try:
+        ezgmail.send(PHONE, 'Weather Alert!', weatherData['alerts'][0]['description'])
+    except KeyError:  # If there is no ['alerts'] key/value, catches the error and reports no alerts
+        pass
+
+    # Pauses program for 5 minutes
+    time.sleep(300)
