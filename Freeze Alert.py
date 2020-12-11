@@ -6,6 +6,8 @@ import json, requests, sys, ezgmail, os, time
 APPID = 'INSERT YOUR AP ID FROM OPENWEATHER.ORG'
 LAT = 'INSERT YOUR AREAS LATTITUDE'
 LON = 'INSERT YOUR AREAS LONGITUDE'
+PHONE = 'INSERT YOUR PHONES SMS EMAIL ADDRESS HERE'
+CREDPATH = r'INSERT THE FILE PATH TO YOUR CREDENTIAL FILE'
 
 # Download the JSON data from OpenWeatherMap.org's API.
 url ='https://api.openweathermap.org/data/2.5/onecall?lat={}&lon={}&units=imperial&exclude=minutely,daily,hourly&appid={}'.format(LAT, LON, APPID)
@@ -16,7 +18,7 @@ response.raise_for_status()
 weatherData = json.loads(response.text)
 
 # Changes to the working directory of the program
-os.chdir(r'C:\Users\charl\OneDrive\Documents\GitHub\Weather Alert App')
+os.chdir(r'{}'.format(CREDPATH))
 
 # Prompts for google sign in if not already done so
 ezgmail.init()
