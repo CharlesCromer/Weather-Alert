@@ -1,13 +1,15 @@
 #! python3
 # getOpenWeather.py - Prints the weather for a location from the command line.
 
-APPID = '22707584ea58c4a1bb1727bbc6aea7fd'
+APPID = '<your api key from openweather.org with no <> brackets>'
+LAT = ''
+LON = ''
 
 import json, requests, sys
 
 
 # Download the JSON data from OpenWeatherMap.org's API.
-url ='https://api.openweathermap.org/data/2.5/onecall?lat=30.2455&lon=-85.6483&units=imperial&exclude=minutely,daily,hourly&appid=22707584ea58c4a1bb1727bbc6aea7fd'
+url ='https://api.openweathermap.org/data/2.5/onecall?lat={}&lon={}&units=imperial&exclude=minutely,daily,hourly&appid={}'.format(LAT, LON, APPID)
 response = requests.get(url)
 response.raise_for_status()
 
