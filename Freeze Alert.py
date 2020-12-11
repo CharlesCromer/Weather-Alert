@@ -1,5 +1,5 @@
 #! python3
-# getOpenWeather.py - Prints the weather for a location from the command line.
+
 import json, requests, sys
 
 # Initializing constants
