@@ -1,6 +1,6 @@
 #! python3
 
-import json, requests, sys
+import json, requests, sys, ezgmail, os
 
 # Initializing constants
 APPID = 'INSERT YOUR AP ID FROM OPENWEATHER.ORG'
@@ -15,9 +15,14 @@ response.raise_for_status()
 # Load JSON data into a Python variable.
 weatherData = json.loads(response.text)
 
-# Prints the description of any weather alerts, will later be replaced with sending email-to-text code.
-try:
-    print(weatherData['alerts'][0]['description'])
-except KeyError:  # If there is no ['alerts'] key/value, catches the error and reports no alerts
-    print('No Alerts :)')
+# Changes to the working directory of the program
+os.chdir(r'C:\Users\charl\OneDrive\Documents\GitHub\Weather Alert App')
 
+ezgmail.init()
+
+# Sends email to PHONE if there is a weather alert for LON and LAT
+try:
+    ezgmail.send(PHONE, 'Weather Alert!', weatherData['alerts'][0]['description'])
+except KeyError:  # If there is no ['alerts'] key/value, catches the error and reports no alerts
+    #ezgmail.send(PHONE, 'Weather Alert!', 'This is my program sending you a weather alert: No Alerts :)')
+    print('No Alerts :)')
