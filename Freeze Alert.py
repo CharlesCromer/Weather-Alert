@@ -47,7 +47,7 @@ while True:
         # If there is a new alert, the new alert is sent to the phone numbers.
         if newAlert != alert:
             ezgmail.send(PHONE, 'Weather Alert!', weatherData['alerts'][0]['description'])
-            
+
             # Sets newAlert as alert so that upon next loop can determine if there is a new alert
             alert = newAlert
 
