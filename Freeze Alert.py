@@ -2,7 +2,7 @@
 ## Weather Alert App
 ## Created by: Charles Cromer
 ## Created: 12/01/2020
-## Last Modified: 12/13/2020
+## Last Modified: 12/20/2020
 
 import json, requests, sys, ezgmail, os, time
 
@@ -23,7 +23,8 @@ os.chdir(r'{}'.format(CREDPATH))
 ezgmail.init()
 
 # Creates a comparison alert variable
-alert = ''
+alert = []
+newAlert = []
 
 # Creates a loop that will keep the alert checks going infinitely
 while True:
@@ -40,18 +41,23 @@ while True:
     try:
 
         # Saves Current alert as newAlert in order to compares it to alert to see if any new alerts are out
-        newAlert = weatherData['alerts'][0]['description']
+        for i in range( len(weatherData['alerts'])):
+            newAlert.append(weatherData['alerts'][i]['description'])
 
         # Compares newAlert and alert to see if there has been any change
         # If the alert stays the same, program skips this loop
         # If there is a new alert, the new alert is sent to the phone numbers.
         if newAlert != alert:
-            ezgmail.send(PHONE, 'Weather Alert!', weatherData['alerts'][0]['description'])
+            for i in range( len(newAlert) ):
+                ezgmail.send(PHONE, 'Weather Alert!', newAlert[i])
 
-            # Sets newAlert as alert so that upon next loop can determine if there is a new alert
-            alert = newAlert
+        # Sets newAlert as alert so that upon next loop can determine if there is a new alert
+        alert = newAlert
 
-    # If there is no ['alerts'] key/value, catches the error and reports no alerts
+        # Resets newAlert to a blank list for future comparison
+        newAlert = []
+
+    # If there is no ['alerts'] key/value, catches the error continues with the program
     except KeyError:
         pass
 
