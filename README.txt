@@ -1,9 +1,10 @@
-
 Weather Alert App
 Created by: Charles Cromer
 Contact: Charles.Cromer@gmail.com
 Created: 12/01/2020
 Last Edit: 12/20/2020
+
+This project demonstraits the use of lists, loops, decision structures, error handling, OS functions, json manipulation, and api integrations. 
 
 There are a few things that must be accomplished prior to running this application successfully on your local environment. You will need to enable the Gmail API, and obtain an application ID from 
 Enabling the Gmail API
